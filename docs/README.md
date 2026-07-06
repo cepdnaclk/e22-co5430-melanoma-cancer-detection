@@ -21,7 +21,7 @@ This is a sample image, to show how to add images to your page. To learn more op
 
 ## Team
 -  E/22/052, K.H.D.M.Bimsara, [email](mailto:name@email.com)
--  eNumber, Name, [email](mailto:name@email.com)
+-  E/22/058, Name, [email](mailto:name@email.com)
 -  eNumber, Name, [email](mailto:name@email.com)
 
 ## Table of Contents
