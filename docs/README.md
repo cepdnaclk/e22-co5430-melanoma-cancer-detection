@@ -15,11 +15,11 @@ title: Melanoma Cancer Detection
 -  E/22/419 - R.G.S.T.Weerasekara
 
 ## Table of Contents
-1. [Introduction](#introduction)
-2. [Dataset](#dataset)
-3. [Methodology](#methodology)
-4. [Results](#results)
-5. [Links](#links)
+1. Introduction
+2. Dataset
+3. Methodology
+4. Results
+5. Links
 
 ---
 
