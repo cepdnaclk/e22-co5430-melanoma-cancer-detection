@@ -30,7 +30,7 @@ This project explores automated melanoma classification from dermoscopic images 
 
 ## Dataset
 We use publicly available dermoscopic image datasets for training and evaluation:
-- [Kaggle - Melanoma Cancer Dataset](https://www.kaggle.com/datasets/bhaveshmittal/melanoma-cancer-dataset) - dermoscopic images with lesion-type labels (melanoma, nevus, seborrheic keratosis, etc.)
+- [Melanoma Cancer Dataset](https://www.kaggle.com/datasets/bhaveshmittal/melanoma-cancer-dataset) - dermoscopic images with lesion-type labels (melanoma, nevus, seborrheic keratosis, etc.)
 
 Preprocessing includes resizing, normalization, and augmentation (rotation, flipping, contrast adjustment) to address class imbalance and improve generalization.
 
