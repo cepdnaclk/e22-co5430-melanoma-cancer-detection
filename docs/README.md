@@ -49,7 +49,7 @@ Preprocessing includes resizing, normalization, and augmentation (rotation, flip
 
 ## Links
 - [Project Repository](https://github.com/cepdnaclk/e22-co5430-melanoma-cancer-detection)
-- [Project Page](https://cepdnaclk.github.io/{{ page.e22-co5430-melanoma-cancer-detection }}){:target="_blank"}
+- [Project Page](https://cepdnaclk.github.io/e22-co5430-melanoma-cancer-detection)
 - [Department of Computer Engineering](http://www.ce.pdn.ac.lk/)
 - [University of Peradeniya](https://eng.pdn.ac.lk/)
 
