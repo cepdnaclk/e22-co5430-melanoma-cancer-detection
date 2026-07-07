@@ -1,21 +1,12 @@
 ---
 layout: home
 permalink: index.html
-repository-name:e22-co5430-melanoma-cancer-detection
-title:Melanoma cancer detection
+repository-name: e22-co5430-melanoma-cancer-detection
+title: Melanoma Cancer Detection
 ---
 
-[comment]: # "This is the standard layout for the project, but you can clean this and use your own template"
-
-# Project Title
-
+# Melanoma Cancer Detection using Deep Learning
 ---
-
-<!-- 
-This is a sample image, to show how to add images to your page. To learn more options, please refer [this](https://projects.ce.pdn.ac.lk/docs/faq/how-to-add-an-image/)
-
-![Sample Image](./images/sample.png)
- -->
 
 ## Team
 -  E/22/052 - K.H.D.M.Bimsara
@@ -25,26 +16,42 @@ This is a sample image, to show how to add images to your page. To learn more op
 
 ## Table of Contents
 1. [Introduction](#introduction)
-2. [Other Sub Topics](#other-sub-topics)
-3. [Links](#links)
+2. [Dataset](#dataset)
+3. [Methodology](#methodology)
+4. [Results](#results)
+5. [Links](#links)
 
 ---
 
 ## Introduction
+Melanoma is one of the most aggressive forms of skin cancer, and early detection significantly improves patient survival rates. However, manual diagnosis via dermoscopic image analysis is time-consuming and requires specialist expertise that isn't always accessible, especially in resource-limited settings.
 
- description of the real world problem and solution, impact
+This project explores automated melanoma classification from dermoscopic images using deep learning (CNN-based) techniques, aiming to build a model that can assist in distinguishing malignant melanoma from benign skin lesions with high accuracy.
 
-## Other Sub Topics
+## Dataset
+We use publicly available dermoscopic image datasets for training and evaluation:
+- **ISIC Archive / HAM10000** - dermoscopic images with lesion-type labels (melanoma, nevus, seborrheic keratosis, etc.)
 
-.....
+Preprocessing includes resizing, normalization, and augmentation (rotation, flipping, contrast adjustment) to address class imbalance and improve generalization.
+
+## Methodology
+- Data preprocessing and augmentation
+- CNN-based architecture (transfer learning with pretrained backbones such as ResNet/EfficientNet under evaluation)
+- Training/validation split with performance tracked via accuracy, precision, recall, and AUC-ROC
+- Model evaluation on held-out test data
+
+*(To be expanded as the project progresses)*
+
+## Results
+*(To be added once experiments are complete)*
+
+---
 
 ## Links
-
-- [Project Repository](https://github.com/cepdnaclk/{{ page.repository-name }}){:target="_blank"}
-- [Project Page](https://cepdnaclk.github.io/{{ page.repository-name}}){:target="_blank"}
+- [Project Repository](https://github.com/cepdnaclk/{{ page.e22-co5430-melanoma-cancer-detection }}){:target="_blank"}
+- [Project Page](https://cepdnaclk.github.io/{{ page.e22-co5430-melanoma-cancer-detection }}){:target="_blank"}
 - [Department of Computer Engineering](http://www.ce.pdn.ac.lk/)
 - [University of Peradeniya](https://eng.pdn.ac.lk/)
-
 
 [//]: # (Please refer this to learn more about Markdown syntax)
 [//]: # (https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
