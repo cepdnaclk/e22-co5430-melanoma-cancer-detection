@@ -20,9 +20,10 @@ This is a sample image, to show how to add images to your page. To learn more op
  -->
 
 ## Team
--  E/22/052, K.H.D.M.Bimsara, [email](mailto:name@email.com)
--  E/22/058, Name, [email](mailto:name@email.com)
--  eNumber, Name, [email](mailto:name@email.com)
+-  E/22/052, K.H.D.M.Bimsara, [email](mailto:e22052@eng.pdn.ac.lk)
+-  E/22/058, M.M.T.Cooray, [email](mailto:e22058@eng.pdn.ac.lk)
+-  E/22/353, G.K.G.Sandeepa, [email](mailto:e22353@eng.pdn.ac.lk)
+-  E/22/419, R.G.S.T.Weerasekara, [email](mailto:e22419@eng.pdn.ac.lk)
 
 ## Table of Contents
 1. [Introduction](#introduction)
