@@ -30,7 +30,7 @@ This project explores automated melanoma classification from dermoscopic images 
 
 ## Dataset
 We use publicly available dermoscopic image datasets for training and evaluation:
-- **ISIC Archive / HAM10000** - dermoscopic images with lesion-type labels (melanoma, nevus, seborrheic keratosis, etc.)
+- ** Kaggle - Melanoma Cancer Dataset** - dermoscopic images with lesion-type labels (melanoma, nevus, seborrheic keratosis, etc.)
 
 Preprocessing includes resizing, normalization, and augmentation (rotation, flipping, contrast adjustment) to address class imbalance and improve generalization.
 
@@ -48,7 +48,7 @@ Preprocessing includes resizing, normalization, and augmentation (rotation, flip
 ---
 
 ## Links
-- [Project Repository](https://github.com/cepdnaclk/{{ page.e22-co5430-melanoma-cancer-detection }}){:target="_blank"}
+- [Project Repository](https://github.com/cepdnaclk/e22-co5430-melanoma-cancer-detection)
 - [Project Page](https://cepdnaclk.github.io/{{ page.e22-co5430-melanoma-cancer-detection }}){:target="_blank"}
 - [Department of Computer Engineering](http://www.ce.pdn.ac.lk/)
 - [University of Peradeniya](https://eng.pdn.ac.lk/)
