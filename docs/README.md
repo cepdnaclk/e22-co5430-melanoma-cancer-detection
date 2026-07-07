@@ -1,9 +1,8 @@
 ---
 layout: home
-
-# Please update this with your repository name and title
+permalink: index.html
 repository-name:e22-co5430-melanoma-cancer-detection
-title:Melanoma cancer detection using image processing
+title:Melanoma cancer detection
 ---
 
 [comment]: # "This is the standard layout for the project, but you can clean this and use your own template"
