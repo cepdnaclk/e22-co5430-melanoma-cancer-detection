@@ -33,7 +33,7 @@ pip install -r requirements.txt
 ```
 
 ## 4. Download the Dataset
-This project uses the [ISIC Archive / HAM10000](https://www.kaggle.com/datasets/bhaveshmittal/melanoma-cancer-dataset) dataset.
+This project uses the [Melanoma Cancer Dataset](https://www.kaggle.com/datasets/bhaveshmittal/melanoma-cancer-dataset) dataset.
 
 1. Download the dataset from the source link above.
 2. Place it under `data/raw/` (create the folder if it doesn't exist).
