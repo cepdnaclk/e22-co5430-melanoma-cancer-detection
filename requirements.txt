@@ -1,0 +1,16 @@
+# Core ML/DL
+torch
+torchvision
+
+# Data & visualization
+numpy
+matplotlib
+seaborn
+scikit-learn
+
+# Dataset download
+kaggle
+
+# Notebook support
+jupyter
+ipykernel
