@@ -1,0 +1,39 @@
+{
+  "dataset_path": "D:\\4th Semester - April 2026\\CO5430 - Image Processing\\Project\\data",
+  "splits": {
+    "test": {
+      "benign": 10,
+      "malignant": 10
+    },
+    "train": {
+      "benign": 10,
+      "malignant": 10
+    }
+  },
+  "total_images": 40,
+  "corrupt_images": [],
+  "image_sizes": [
+    [
+      224,
+      224
+    ]
+  ],
+  "color_modes": [
+    "RGB"
+  ],
+  "class_counts": {
+    "benign": 20,
+    "malignant": 20
+  },
+  "rgb_mean": [
+    0.8988,
+    0.7353,
+    0.6654
+  ],
+  "rgb_std": [
+    0.1364,
+    0.1262,
+    0.1201
+  ],
+  "imbalance_ratio": 0.9999995000002501
+}

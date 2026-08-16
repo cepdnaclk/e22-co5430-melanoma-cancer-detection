@@ -1,16 +1,25 @@
-# Core ML/DL
-torch
-torchvision
+# Core Deep Learning
+torch>=2.0.0
+torchvision>=0.15.0
 
-# Data & visualization
-numpy
-matplotlib
-seaborn
-scikit-learn
+# Data Processing & Analysis
+numpy>=1.24.0
+pandas>=2.0.0
+Pillow>=9.5.0
 
-# Dataset download
-kaggle
+# Computer Vision & Saliency (Grad-CAM)
+opencv-python-headless>=4.7.0
 
-# Notebook support
-jupyter
-ipykernel
+# Machine Learning & Medical Metrics Evaluation
+scikit-learn>=1.2.0
+
+# Visualizations & Plotting
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Kaggle / Colab Dataset Integration
+kaggle>=1.5.13
+
+# Jupyter / Interactive Environment
+jupyter>=1.0.0
+ipykernel>=6.20.0
