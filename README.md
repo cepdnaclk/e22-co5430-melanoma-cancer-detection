@@ -25,7 +25,7 @@ This project develops an end-to-end deep learning system for the automated binar
 | **E/22/419** | R. G. S. T. Weerasekara | `e22419@eng.pdn.ac.lk` |
 
 * **Project Repository:** [https://github.com/cepdnaclk/e22-co5430-melanoma-cancer-detection](https://github.com/cepdnaclk/e22-co5430-melanoma-cancer-detection)
-* **Kaggle Notebook:** [https://cepdnaclk.github.io/e22-co5430-melanoma-cancer-detection/](https://www.kaggle.com/code/gayashasandeepa/co5430-melanoma-cancer-detection)
+* **Kaggle Notebook:** [https://www.kaggle.com/code/gayashasandeepa/co5430-melanoma-cancer-detection](https://www.kaggle.com/code/gayashasandeepa/co5430-melanoma-cancer-detection)
 
 ---
 
