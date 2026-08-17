@@ -5,9 +5,9 @@ repository-name: e22-co5430-melanoma-cancer-detection
 title: Melanoma Cancer Detection
 ---
 
-# Melanoma Skin Cancer Detection using Deep Learning & Explainable AI (Grad-CAM)
+# Melanoma Skin Cancer Detection using Image Processing and Deep Learning
 
-> **CO5430 / CO543 Computer Vision Project · Medical Imaging Track**  
+> **CO5430 Image Proceesing Project · Medical Imaging Track**  
 > **Department of Computer Engineering · University of Peradeniya**  
 > **Group 15 (E/22)**  
 > **Supervisor:** Dr. Upul Jayasinghe
@@ -45,12 +45,12 @@ Automated diagnostic systems powered by Deep Learning offer scalable assistance 
 
 | Milestone | Status | Key Deliverables & Progress |
 | :--- | :---: | :--- |
-| **M1: Project Proposal** | ✅ **Done** | Proposal submission defining project scope, clinical metrics, and dataset choice (`docs/documentation/CO5430_Project_Proposal.pdf`). |
-| **M2: Baseline Pipeline** | ✅ **Done** | Baseline pipeline and presentation slide deck (`docs/documentation/CO5430_Group15_M2.pdf`). |
-| **M3: Prototype & Results** | 🚀 **Completed** | Full multi-model pipeline: Baseline CNN from scratch, ResNet-18 (Feature Extraction & Fine-Tuning), EfficientNet-B0, complete test set metrics table, confusion matrices, ROC/PR curves, and Grad-CAM saliency grids. |
-| **M4: Experiment Freeze** | ⏳ *Upcoming* | Hyperparameter tuning freeze, finalizing model checkpoints and quantitative logs. |
-| **M5: Technical Draft Report** | ⏳ *Upcoming* | Comprehensive IEEE manuscript drafting with full qualitative and quantitative discussion. |
-| **M6: Final Submission & Demo**| ⏳ *Upcoming* | Final IEEE report submission, clean code release, and oral presentation. |
+| **M1: Project Proposal** | **Done** | Proposal submission defining project scope, clinical metrics, and dataset choice (`docs/documentation/CO5430_Project_Proposal.pdf`). |
+| **M2: Baseline Pipeline** | **Done** | Baseline pipeline and presentation slide deck (`docs/documentation/CO5430_Group15_M2.pdf`). |
+| **M3: Prototype & Results** | **Completed** | Full multi-model pipeline (Baseline CNN from scratch, ResNet-18 (Feature Extraction & Fine-Tuning), EfficientNet-B0, complete test set metrics table, confusion matrices, ROC/PR curves, and Grad-CAM saliency grids) and results presentation (`docs/documentation/CO5430_Group15_M3.pdf` |
+| **M4: Experiment Freeze** | *Upcoming* | Hyperparameter tuning freeze, finalizing model checkpoints and quantitative logs. |
+| **M5: Technical Draft Report** | *Upcoming* | Comprehensive IEEE manuscript drafting with full qualitative and quantitative discussion. |
+| **M6: Final Submission & Demo**| *Upcoming* | Final IEEE report submission, clean code release, and oral presentation. |
 
 ---
 
@@ -86,7 +86,7 @@ Evaluated on **2,000 held-out test images**:
 | **Baseline CNN** | Trained from Scratch | 86.00% | 0.9000 | 0.8100 | 0.9100 | 0.8526 | 0.9446 | 0.9350 |
 | **ResNet-18 (Feat. Ext.)** | Frozen Backbone | 88.40% | 0.8887 | 0.8780 | 0.8900 | 0.8833 | 0.9494 | 0.9460 |
 | **EfficientNet-B0** | Fine-Tuned Backbone | 93.95% | 0.9554 | 0.9220 | **0.9570** | 0.9384 | 0.9850 | 0.9845 |
-| 🥇 **ResNet-18 (Fine-Tuned)** | Fine-Tuned (Layer3+4) | **95.00%** | **0.9564** | **0.9430** | **0.9570** | **0.9496** | **0.9882** | **0.9877** |
+| **ResNet-18 (Fine-Tuned)** | Fine-Tuned (Layer3+4) | **95.00%** | **0.9564** | **0.9430** | **0.9570** | **0.9496** | **0.9882** | **0.9877** |
 
 ---
 

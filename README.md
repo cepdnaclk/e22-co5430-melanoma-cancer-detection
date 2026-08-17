@@ -1,6 +1,6 @@
 # Melanoma Skin Cancer Detection using Image Processing and Deep Learning
 
-> **CO5430 Image Processing Project · Medical Imaging Track**  
+> **CO5430 Image Proceesing Project · Medical Imaging Track**  
 > **Department of Computer Engineering · University of Peradeniya**  
 > **Group 15 (E/22)**  
 > **Supervisor:** Dr. Upul Jayasinghe
@@ -25,7 +25,7 @@ This project develops an end-to-end deep learning system for the automated binar
 | **E/22/419** | R. G. S. T. Weerasekara | `e22419@eng.pdn.ac.lk` |
 
 * **Project Repository:** [https://github.com/cepdnaclk/e22-co5430-melanoma-cancer-detection](https://github.com/cepdnaclk/e22-co5430-melanoma-cancer-detection)
-* **Kaggle Notebook:** [https://www.kaggle.com/code/gayashasandeepa/co5430-melanoma-cancer-detection](https://www.kaggle.com/code/gayashasandeepa/co5430-melanoma-cancer-detection)
+* **Kaggle Notebook:** [https://cepdnaclk.github.io/e22-co5430-melanoma-cancer-detection/](https://www.kaggle.com/code/gayashasandeepa/co5430-melanoma-cancer-detection)
 
 ---
 
@@ -46,8 +46,8 @@ flowchart TD
 | :--- | :---: | :---: | :--- |
 | **M0: Group formation and topic registration** | 7 Jul | **Done** | Group members, topic category, dataset source, preliminary GitHub link |
 | **M1: Proposal and project plan** | 14 Jul | **Done** | Proposal document (`docs/documentation/CO5430_Project_Proposal.pdf`) defining problem scope and dataset selection. |
-| **M2: Dataset and baseline checkpoint** | 28 Jul | **Done** | Initial repository layout, dataset verification, and presentation deck (`Group15_M2.pdf`). |
-| **M3: Prototype and preliminary results checkpoint** | 18 Aug | **Completed** | Full experimental comparison (Baseline CNN from scratch, ResNet-18 (FE & FT), EfficientNet-B0, full test metrics table, error analysis, and 4-group Grad-CAM saliency heatmaps) and results presentation (`Group15_M2.pdf`)|
+| **M2: Dataset and baseline checkpoint** | 28 Jul | **Done** | Initial repository layout, dataset verification, and presentation deck (`docs/documentation/CO5430_Group15_M2.pdf`). |
+| **M3: Prototype and preliminary results checkpoint** | 18 Aug | **Completed** | Full experimental comparison (Baseline CNN from scratch, ResNet-18 (FE & FT), EfficientNet-B0, full test metrics table, error analysis, and 4-group Grad-CAM saliency heatmaps) and results presentation (`docs/documentation/CO5430_Group15_M3.pdf`)|
 | **M4: Experiment Freeze** | 25 Aug | **Upcoming** | Hyperparameter freeze, finalizing checkpoint weights, and final quantitative tables. |
 | **M5: Draft Report** | 01 Sep | **Upcoming** | Complete IEEE-formatted draft report with figures, methodology, and medical discussion. |
 | **M6: Final Submission & Demo** | 07 Sep | **Upcoming** | Final IEEE manuscript, clean modular source package, and final presentation. |
