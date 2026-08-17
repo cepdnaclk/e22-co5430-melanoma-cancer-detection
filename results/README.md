@@ -1,6 +1,6 @@
 # Experimental Results & Model Evaluation
 
-## CO5430 / CO543 — Computer Vision Project · Medical Imaging Track
+## CO5430 Image Proceesing Project · Medical Imaging Track
 **Task:** Automated Binary Classification of Dermoscopic Skin Lesions (Benign vs. Malignant Melanoma)  
 **Dataset:** [Melanoma Cancer Dataset (Kaggle)](https://www.kaggle.com/datasets/bhaveshmittal/melanoma-cancer-dataset)  
 **Evaluation Set:** 2,000 held-out test images (1,000 Benign, 1,000 Malignant)
