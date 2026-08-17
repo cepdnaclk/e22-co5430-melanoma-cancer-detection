@@ -1,4 +1,4 @@
-# Melanoma Skin Cancer Detection
+# Melanoma Skin Cancer Detection using Image Processing and Deep Learning
 
 > **CO5430 Image Processing Project · Medical Imaging Track**  
 > **Department of Computer Engineering · University of Peradeniya**  
