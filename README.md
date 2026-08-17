@@ -1,6 +1,6 @@
-# Melanoma Skin Cancer Detection & Explainable AI (Grad-CAM)
+# Melanoma Skin Cancer Detection
 
-> **CO5430 / CO543 Computer Vision Project · Medical Imaging Track**  
+> **CO5430 Image Processing Project · Medical Imaging Track**  
 > **Department of Computer Engineering · University of Peradeniya**  
 > **Group 15 (E/22)**  
 > **Supervisor:** Dr. Upul Jayasinghe
