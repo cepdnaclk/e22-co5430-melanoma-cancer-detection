@@ -12,7 +12,7 @@
     "tn": 910,
     "fn": 180
   },
-  "resnet18_feature_extraction": {
+  "resnet18_feat_ext": {
     "accuracy": 0.8805,
     "precision": 0.8984,
     "recall": 0.858,
@@ -38,7 +38,7 @@
     "tn": 960,
     "fn": 83
   },
-  "resnet18_fine_tuned": {
+  "resnet18_fine_tuned_t050": {
     "accuracy": 0.9405,
     "precision": 0.9454,
     "recall": 0.935,
@@ -50,5 +50,41 @@
     "fp": 54,
     "tn": 946,
     "fn": 65
+  },
+  "resnet18_fine_tuned_t035": {
+    "accuracy": 0.9455,
+    "precision": 0.9329,
+    "recall": 0.96,
+    "specificity": 0.931,
+    "f1": 0.9463,
+    "roc_auc": 0.9858,
+    "tp": 960,
+    "fp": 69,
+    "tn": 931,
+    "fn": 40
+  },
+  "ensemble_t050": {
+    "accuracy": 0.952,
+    "precision": 0.9603,
+    "recall": 0.943,
+    "specificity": 0.961,
+    "f1": 0.9516,
+    "roc_auc": 0.9903,
+    "tp": 943,
+    "fp": 39,
+    "tn": 961,
+    "fn": 57
+  },
+  "ensemble_t035": {
+    "accuracy": 0.9505,
+    "precision": 0.9319,
+    "recall": 0.972,
+    "specificity": 0.929,
+    "f1": 0.9515,
+    "roc_auc": 0.9903,
+    "tp": 972,
+    "fp": 71,
+    "tn": 929,
+    "fn": 28
   }
 }
