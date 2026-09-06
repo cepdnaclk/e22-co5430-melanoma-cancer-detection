@@ -1,52 +1,60 @@
 # Experimental Results & Model Evaluation
 
-## CO5430 Image Proceesing Project · Medical Imaging Track
+## CO5430 / CO543 — Computer Vision Project · Medical Imaging Track
 **Task:** Automated Binary Classification of Dermoscopic Skin Lesions (Benign vs. Malignant Melanoma)  
 **Dataset:** [Melanoma Cancer Dataset (Kaggle)](https://www.kaggle.com/datasets/bhaveshmittal/melanoma-cancer-dataset)  
 **Evaluation Set:** 2,000 held-out test images (1,000 Benign, 1,000 Malignant)
 
 ---
 
-## 1. Quantitative Performance Comparison
+## 1. Final Frozen Master Performance Comparison (M4 Benchmark)
 
-The table below summarizes the comparative performance of all evaluated architectures on the unseen test set, representing the empirical ablation study required by the course specification:
+The table below summarizes the comparative performance of all evaluated architectures and optimization strategies on the 2,000 unseen test samples:
 
-| Model | Strategy | Trainable Parameters | Accuracy | Precision | Sensitivity (Recall) | Specificity | F1-Score | ROC-AUC | PR-AUC |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Baseline CNN** | Trained from scratch | ~94 K | 86.00% | 0.9000 | 0.8100 | 0.9100 | 0.8526 | 0.9446 | 0.9350 |
-| **ResNet-18 (Feat. Ext.)** | Frozen backbone + Linear Head | ~513 | 88.40% | 0.8887 | 0.8780 | 0.8900 | 0.8833 | 0.9494 | 0.9460 |
-| **EfficientNet-B0** | Fine-tuned (blocks 7, 8 + Head) | ~4.0 M | 93.95% | 0.9554 | 0.9220 | **0.9570** | 0.9384 | 0.9850 | 0.9845 |
-| **ResNet-18 (Fine-Tuned)** | Fine-tuned (layer3, layer4 + Head) | ~4.7 M | **95.00%** | **0.9564** | **0.9430** | **0.9570** | **0.9496** | **0.9882** | **0.9877** |
+| Experiment Configuration | Strategy / Threshold | Accuracy | Sensitivity (Recall) | Specificity | Precision | F1-Score | ROC-AUC | Missed Melanomas (FN) |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Baseline CNN** | Trained from Scratch ($\tau=0.50$) | 86.50% | 82.00% | 91.00% | 0.9011 | 0.8586 | 0.9461 | 180 |
+| **ResNet-18 (Feat. Ext.)** | Frozen Backbone ($\tau=0.50$) | 88.05% | 85.80% | 90.30% | 0.8984 | 0.8777 | 0.9478 | 142 |
+| **EfficientNet-B0** | Fine-Tuned Backbone ($\tau=0.50$) | 93.85% | 91.70% | **96.00%** | **0.9582** | 0.9371 | 0.9846 | 83 |
+| **ResNet-18 (Fine-Tuned)** | Fine-Tuned Layers 3+4 ($\tau=0.50$) | 94.05% | 93.50% | 94.60% | 0.9454 | 0.9402 | 0.9858 | 65 |
+| **ResNet-18 (Calibrated)** | Fine-Tuned ($\tau=0.35$) | 94.55% | **96.00%** | 93.10% | 0.9329 | 0.9463 | 0.9858 | **40** *(↓ 38% reduction)* |
+| 🥇 **Ensemble (Standard)** | $0.60\text{R} + 0.40\text{E}$ ($\tau=0.50$) | **95.20%** | 94.30% | **96.10%** | **0.9603** | **0.9516** | **0.9903** | 57 |
+| 🛡️ **Ensemble (Best Safety)** | $0.60\text{R} + 0.40\text{E}$ ($\tau=0.35$) | 95.05% | **97.20%** | 92.90% | 0.9319 | **0.9515** | **0.9903** | **28** *(↓ 84.4% reduction)* |
 
 ---
 
-## 2. Key Findings & Insights
+## 2. Key Findings & Clinical Insights
 
-1. **Impact of Transfer Learning:**
-   - Pretrained ImageNet features dramatically improve boundary detection and texture characterization compared to training from scratch, increasing accuracy from **86.00%** (Baseline CNN) to **95.00%** (ResNet-18 Fine-Tuned).
-2. **Clinical Safety & Sensitivity:**
-   - In medical imaging, **Sensitivity (Recall)** is the most critical metric because False Negatives (missed melanomas) are life-threatening. **ResNet-18 Fine-Tuned** achieved the highest sensitivity of **94.30%**, minimizing missed malignancies to 57 cases out of 1,000.
-3. **Parameter Efficiency:**
-   - **EfficientNet-B0** achieved **93.95%** accuracy with only ~4.0M trainable parameters, proving to be the most computationally efficient architecture for mobile/edge dermoscopy deployment.
+1. **Massive Reduction in Missed Cancers (Clinical Safety):**
+   - In medical imaging, **Sensitivity (Recall)** is the most vital metric because missed melanomas (False Negatives) are life-threatening.
+   - While the scratch Baseline CNN missed **180 melanomas**, the calibrated Ensemble model at $\tau=0.35$ reduces missed cases down to **only 28**, achieving a clinical Sensitivity of **97.20%**.
+2. **Ensemble Blending Synergy:**
+   - Weighted soft voting ($0.60 \times P_{\text{ResNet18}} + 0.40 \times P_{\text{EffNetB0}}$) achieved the highest overall test accuracy (**95.20%**) and ROC-AUC (**0.9903**), eliminating single-model boundary errors.
+3. **Transfer Learning Impact:**
+   - Pretrained ImageNet features significantly enhance boundary detection and texture extraction compared to scratch training, lifting accuracy from 86.50% to >94.00%.
 
 ---
 
 ## 3. Visual Artifacts in `results/figures/`
 
-| Figure | Description |
+| Figure File | Description |
 | :--- | :--- |
-| `comparison_table_heatmap.png` | Comprehensive comparative heatmap displaying all 7 evaluation metrics across all 4 models. |
-| `side_by_side_confusion_matrices.png` | 4-way confusion matrices illustrating True Positives, False Positives, True Negatives, and False Negatives. |
+| `comparison_table_heatmap.png` | Comprehensive comparative heatmap displaying evaluation metrics across all models. |
+| `side_by_side_confusion_matrices.png` | 4-way confusion matrices illustrating TP, FP, TN, and FN counts. |
 | `roc_and_pr_curves_comparison.png` | Overlaid Receiver Operating Characteristic (ROC) and Precision-Recall (PR) curves. |
-| `gradcam_resnet18_fine_tuned.png` | 4-Group Grad-CAM saliency heatmaps (Correct Benign, Correct Malignant, False Positive, False Negative). |
-| `gradcam_baseline_vs_resnet18_comparison.png` | Side-by-side saliency comparison showing localization differences between Baseline CNN and ResNet-18. |
-| `misclassified_false_positives.png` | Visual grid of benign lesions misclassified as malignant due to atypical pigmentation patterns. |
-| `misclassified_false_negatives.png` | Visual grid of malignant lesions misclassified as benign for diagnostic risk analysis. |
+| `threshold_calibration_curve.png` | Sensitivity vs. Specificity trade-off curve across thresholds $\tau \in [0.20, 0.50]$. |
+| `misclassified_false_positives.png` | Visual grid of benign lesions misclassified as malignant (purple header). |
+| `misclassified_false_negatives.png` | Visual grid of malignant lesions missed as benign (orange header / critical clinical risk). |
+| `gradcam_resnet18_fine_tuned.png` | 4-Group Grad-CAM saliency heatmaps (Correct Benign, Correct Malignant, FP, FN). |
+| `gradcam_baseline_vs_resnet18_comparison.png` | Side-by-side saliency comparison showing localization differences: Baseline vs. ResNet-18. |
 | `dataset_class_distribution.png` | Partition breakdown and class balance (Benign vs. Malignant). |
+| `sample_images_inspection.png` | 2x5 grid of raw dermoscopic image samples. |
 | `training_curves_*.png` | Epoch-wise BCE loss and accuracy curves for each trained model. |
 
 ---
 
 ## 4. Machine-Readable Metrics
 
-All raw scalars and confusion matrix counts are preserved in [`metrics.json`](metrics.json) for automated validation and benchmarking.
+All raw scalar values and confusion matrix entries are preserved in:
+* [`metrics.json`](metrics.json) (Standard model metrics)
+* [`m4_frozen_metrics.json`](m4_frozen_metrics.json) (Complete M4 frozen configurations including Ensemble and Calibrated thresholds)
