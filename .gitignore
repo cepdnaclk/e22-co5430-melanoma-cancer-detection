@@ -1,0 +1,25 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyTorch Model Checkpoints & Large Binaries
+*.pt
+*.pth
+*.ckpt
+*.h5
+!weights/README.md
+
+# Environments & OS
+.venv/
+venv/
+env/
+.env
+.DS_Store
+Thumbs.db
+
+# Jupyter Checkpoints
+.ipynb_checkpoints/
+
+# Local logs & caches
+*.log
