@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Melanoma Triage Workstation · Clinical Decision Support System</title>
+  <meta name="description" content="Automated Dermoscopic Skin Lesion Triage and Explainable AI (Grad-CAM) Decision Support System">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Clinical Workstation Header -->
+  <header class="top-nav">
+    <div class="brand-section">
+      <div class="medical-cross-icon" aria-hidden="true">+</div>
+      <div class="brand-titles">
+        <h1>DERMATOLOGY DECISION SUPPORT SYSTEM <span style="color:var(--color-clinical-cyan); font-weight:400;">(CDSS)</span></h1>
+        <div class="dept-tag">CO5430 Medical Imaging · Department of Computer Engineering · University of Peradeniya</div>
+      </div>
+    </div>
+
+    <div class="nav-controls">
+      <!-- Engine Status -->
+      <div class="engine-status-pill" id="engineStatusPill" title="Inference Backend Engine">
+        <span class="status-dot"></span>
+        <span id="engineLabel">Detecting Engine...</span>
+      </div>
+
+      <!-- Threshold Calibration Switch -->
+      <div class="threshold-switch-container" title="Calibrated Decision Threshold (\u03c4)">
+        <span class="threshold-label">Threshold:</span>
+        <button type="button" class="threshold-btn active" id="btnThresh035" data-threshold="0.35">
+          &tau; = 0.35 (Clinical Safety)
+        </button>
+        <button type="button" class="threshold-btn" id="btnThresh050" data-threshold="0.50">
+          &tau; = 0.50 (Standard)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+
+    <!-- Clinical Protocol Banner -->
+    <div class="protocol-banner">
+      <div>
+        <strong>Clinical Calibration Protocol Active:</strong> 
+        Operating at calibrated decision threshold (&tau; = <span id="protocolThreshVal">0.35</span>). 
+        Prioritizes maximum sensitivity (<strong>97.20% Recall</strong>) reducing missed melanomas by <strong>84%</strong> on held-out evaluations.
+      </div>
+      <div style="font-size:0.75rem; color:var(--text-muted);">M4 Freeze Benchmark</div>
+    </div>
+
+    <!-- KPI Summary Row -->
+    <section class="kpi-row" aria-label="Batch Diagnostic Overview">
+      <div class="kpi-card active-kpi">
+        <span class="kpi-title">Total Cases Evaluated</span>
+        <span class="kpi-value" id="kpiTotal">0</span>
+        <span class="kpi-subtext">Dermoscopic acquisitions in queue</span>
+      </div>
+      <div class="kpi-card malignant-card">
+        <span class="kpi-title">Malignant Suspicions (Melanoma)</span>
+        <span class="kpi-value" style="color:var(--color-malignant);" id="kpiMalignant">0</span>
+        <span class="kpi-subtext">Requiring urgent clinical review</span>
+      </div>
+      <div class="kpi-card benign-card">
+        <span class="kpi-title">Benign Diagnoses</span>
+        <span class="kpi-value" style="color:var(--color-benign);" id="kpiBenign">0</span>
+        <span class="kpi-subtext">Circumscribed melanocytic nevi</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-title">Mean Confidence</span>
+        <span class="kpi-value" id="kpiConfidence">--%</span>
+        <span class="kpi-subtext">Posterior class discrimination</span>
+      </div>
+    </section>
+
+    <!-- Upload & Acquisition Panel -->
+    <section class="workstation-panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
+          </svg>
+          Lesion Image Acquisition & Batch Upload
+        </div>
+        <div class="panel-actions">
+          <button type="button" class="btn-clinical-secondary" id="btnToggleSamples">
+            <span>&#9662;</span> Reference Case Library
+          </button>
+        </div>
+      </div>
+
+      <!-- Dropzone -->
+      <div class="dropzone-container" id="dropzone">
+        <svg class="dropzone-icon" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+        </svg>
+        <div class="dropzone-title">Drag and drop dermoscopy images here</div>
+        <div class="dropzone-subtitle">Supports multiple JPG, PNG, and DICOM-derived dermoscopic lesion captures</div>
+        <div class="dropzone-buttons">
+          <input type="file" id="fileInput" multiple accept="image/jpeg,image/png,image/jpg" style="display:none;">
+          <button type="button" class="btn-clinical-primary" id="btnBrowse">
+            Browse Local Files
+          </button>
+          <button type="button" class="btn-clinical-secondary" id="btnQuickLoadAllSamples">
+            Load 10 Reference Cases
+          </button>
+        </div>
+      </div>
+
+      <!-- Sample Cases Drawer -->
+      <div class="sample-drawer" id="sampleDrawer" style="display:none;">
+        <div class="sample-drawer-title">CO5430 Project Dataset Benchmark Reference Cases (Click any to triage):</div>
+        <div class="sample-grid" id="sampleGrid">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Clinical Triage Table Panel -->
+    <section class="workstation-panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+          </svg>
+          Patient Case Triage Queue
+        </div>
+        <div class="panel-actions">
+          <button type="button" class="btn-clinical-secondary" id="btnExportCSV">
+            Export Clinical Audit (CSV)
+          </button>
+          <button type="button" class="btn-clinical-secondary" id="btnPrintReport">
+            Print Case Summary
+          </button>
+          <button type="button" class="btn-clinical-secondary" id="btnClearQueue" style="color:#F87171;">
+            Clear Queue
+          </button>
+        </div>
+      </div>
+
+      <div class="triage-table-wrapper">
+        <table class="triage-table" id="triageTable">
+          <thead>
+            <tr>
+              <th class="thumb-cell">Lesion</th>
+              <th>Case ID</th>
+              <th>Diagnosis</th>
+              <th>Malignancy Suspicion (MSI)</th>
+              <th>Risk Stratification</th>
+              <th>Recommended Action</th>
+              <th style="text-align:right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="triageTableBody">
+            <!-- Empty state default -->
+            <tr id="emptyRow">
+              <td colspan="7">
+                <div class="empty-queue">
+                  <svg class="empty-queue-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                  </svg>
+                  <p style="font-weight:600; margin-bottom:0.25rem;">No cases currently in triage queue</p>
+                  <p style="font-size:0.75rem;">Upload dermoscopic images or load reference cases above to begin triage.</p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Grad-CAM Explainability (XAI) Modal -->
+  <div class="modal-backdrop" id="xaiModal" role="dialog" aria-modal="true">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-header-titles">
+          <h2 id="modalCaseId">CASE-00001 · Diagnostic Saliency Analysis</h2>
+          <p>Gradient-weighted Class Activation Mapping (Grad-CAM) Visual Localization</p>
+        </div>
+        <button type="button" class="btn-close-modal" id="btnCloseModal" aria-label="Close modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Viewport Side -->
+        <div class="inspection-viewport-col">
+          <div class="viewport-tabs">
+            <button type="button" class="viewport-tab-btn active" data-view="overlay">Grad-CAM Overlay</button>
+            <button type="button" class="viewport-tab-btn" data-view="original">Original Lesion</button>
+            <button type="button" class="viewport-tab-btn" data-view="heatmap">Pure Heatmap</button>
+          </div>
+
+          <div class="dermoscopy-frame">
+            <img id="modalDermoscopyImg" src="" alt="Dermoscopic analysis view">
+            <div class="reticle-overlay" id="reticleOverlay"></div>
+            <div class="reticle-center-cross"></div>
+          </div>
+
+          <div class="opacity-slider-row">
+            <span>Heatmap Opacity (&alpha;):</span>
+            <input type="range" id="opacitySlider" min="0.1" max="0.9" step="0.05" value="0.5">
+            <label style="display:flex; align-items:center; gap:0.35rem; margin-left:auto; cursor:pointer;">
+              <input type="checkbox" id="chkReticle" checked> Reticle Grid
+            </label>
+          </div>
+        </div>
+
+        <!-- Evidence & Metrics Side -->
+        <div class="inspection-diagnostics-col">
+          <!-- Summary Card -->
+          <div class="diag-summary-card">
+            <div class="diag-header-line">
+              <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase;">Model Triage</span>
+              <span class="diagnosis-badge" id="modalDiagnosisBadge">Malignant (Melanoma)</span>
+            </div>
+            <div>
+              <div style="font-size:0.75rem; color:var(--text-secondary); margin-bottom:0.2rem;">Malignancy Suspicion Index (MSI):</div>
+              <div style="display:flex; align-items:baseline; gap:0.5rem;">
+                <span style="font-size:1.85rem; font-weight:700; font-family:var(--font-mono);" id="modalProbVal">91.4%</span>
+                <span style="font-size:0.75rem; color:var(--text-muted);" id="modalThreshVal">(Operating &tau; = 0.35)</span>
+              </div>
+            </div>
+            <div class="diag-action-note" id="modalActionNote">
+              Urgent Excisional Biopsy & Dermatopathology Consult Recommended.
+            </div>
+          </div>
+
+          <!-- ABCD Criteria Card -->
+          <div class="abcd-breakdown-card">
+            <div class="abcd-title">Dermatological ABCD Structural Analysis</div>
+            <div class="abcd-metrics-list">
+              <div class="abcd-metric-item">
+                <span class="metric-name">(A) Asymmetry Index:</span>
+                <span class="metric-val" id="abcdAsymmetry">--/10</span>
+              </div>
+              <div class="abcd-metric-item">
+                <span class="metric-name">(B) Border Irregularity:</span>
+                <span class="metric-val" id="abcdBorder">--/10</span>
+              </div>
+              <div class="abcd-metric-item">
+                <span class="metric-name">(C) Color Variegation:</span>
+                <span class="metric-val" id="abcdColor">--/10</span>
+              </div>
+              <div class="abcd-metric-item">
+                <span class="metric-name">(D) Lesion Area Coverage:</span>
+                <span class="metric-val" id="abcdDiameter">--%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Diagnostic Narrative -->
+          <div class="clinical-narrative" id="modalNarrative">
+            Diagnostic narrative loading...
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Medical Disclaimer Footer -->
+  <footer class="footer-disclaimer">
+    <strong>CO5430 Academic Medical Imaging Research:</strong> 
+    This software is designed strictly for academic evaluation and clinical decision-support research at the University of Peradeniya. 
+    It is not an FDA/CE cleared diagnostic medical device and must never substitute for clinical histological biopsy or consultation by a certified dermatologist.
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
