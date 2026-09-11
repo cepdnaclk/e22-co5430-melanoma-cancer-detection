@@ -191,6 +191,37 @@ def analyze_lesion_dermatology(pil_img: Image.Image) -> dict:
     }
 
 
+def compute_pytorch_gradcam(model, tensor_input):
+    """Calculates hook-based Grad-CAM saliency map from layer4 conv2."""
+    model.eval()
+    fmaps = []
+    grads = []
+    target_layer = model.layer4[-1].conv2 if hasattr(model, 'layer4') else model.fc
+    fwd_hook = target_layer.register_forward_hook(lambda m, i, o: fmaps.append(o))
+    bwd_hook = target_layer.register_full_backward_hook(lambda m, gi, go: grads.append(go[0]))
+
+    tensor_input = tensor_input.clone().detach().requires_grad_(True)
+    logit = model(tensor_input)
+    prob = float(torch.sigmoid(logit).item())
+
+    model.zero_grad()
+    logit.squeeze().backward()
+
+    fwd_hook.remove()
+    bwd_hook.remove()
+
+    fm = fmaps[0].squeeze(0).detach()
+    gr = grads[0].squeeze(0).detach()
+    alpha = gr.mean(dim=(-2, -1))
+    cam = (alpha[:, None, None] * fm).sum(0)
+    cam = torch.relu(cam).cpu().numpy()
+
+    cam_norm = (cam - cam.min()) / (cam.max() - cam.min() + 1e-8)
+    cam_img = Image.fromarray((cam_norm * 255).astype(np.uint8)).resize((224, 224), Image.Resampling.BILINEAR)
+    heatmap = np.array(cam_img, dtype=np.float32) / 255.0
+    return prob, heatmap
+
+
 def predict_single_image(pil_img: Image.Image, threshold: float = CURRENT_THRESHOLD) -> dict:
     """Executes clinical classification, threshold decision, and Grad-CAM saliency generation."""
     # 1. If PyTorch model is loaded, run actual forward pass & Grad-CAM
@@ -202,17 +233,9 @@ def predict_single_image(pil_img: Image.Image, threshold: float = CURRENT_THRESH
                 transforms.Normalize(mean=IMAGENET_MEAN, std=IMAGENET_STD)
             ])
             tensor = eval_transform(pil_img.convert('RGB')).unsqueeze(0).to(DEVICE)
+            prob, heatmap = compute_pytorch_gradcam(MODEL, tensor)
 
-            # Hook for Grad-CAM
-            target_layer = MODEL.fc if hasattr(MODEL, 'fc') else None
-            # Forward pass
-            with torch.no_grad():
-                logit = MODEL(tensor)
-                prob = float(torch.sigmoid(logit).item())
-
-            # Fallback to feature saliency overlay for Grad-CAM visualization
             derm_analysis = analyze_lesion_dermatology(pil_img)
-            heatmap = derm_analysis['heatmap']
             rgb_arr = derm_analysis['image_rgb']
             abcd = {
                 'asymmetry': derm_analysis['asymmetry'],
