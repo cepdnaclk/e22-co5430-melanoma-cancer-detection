@@ -26,6 +26,7 @@ This project develops an end-to-end deep learning system for the automated binar
 
 * **Project Documentation Site:** [https://cepdnaclk.github.io/e22-co5430-melanoma-cancer-detection/](https://cepdnaclk.github.io/e22-co5430-melanoma-cancer-detection/)
 * **Project Repository:** [https://github.com/cepdnaclk/e22-co5430-melanoma-cancer-detection](https://github.com/cepdnaclk/e22-co5430-melanoma-cancer-detection)
+* **Demonstration Video:** [https://drive.google.com/file/d/1xUACHzcngW7S1PNMumXmmKI52PK66s7i/view?usp=sharing](https://drive.google.com/file/d/1xUACHzcngW7S1PNMumXmmKI52PK66s7i/view?usp=sharing)
 
 ---
 
@@ -36,8 +37,8 @@ flowchart TD
     M1[M1: Project Proposal & Scope] -->|Completed| M2[M2: Data Audit & Baseline Setup]
     M2 -->|Completed| M3[M3: Transfer Learning, Evaluation & Grad-CAM]
     M3 -->|Completed| M4[M4: Experiment Freeze & Threshold Calibration]
-    M4 -->|Current Stage| M5[M5: Draft Technical Report]
-    M5 --> M6[M6: Final IEEE Report, Code Release & Demonstration]
+    M4 -->|Completed| M5[M5: Draft Technical Report]
+    M5 -->|Completed| M6[M6: Final IEEE Report, Code Release & Demonstration]
 ```
 
 ### Milestone Progress Status
@@ -48,9 +49,9 @@ flowchart TD
 | **M1: Proposal & Project Plan** | 14 Jul | **Done** | Proposal document (`docs/documentation/CO5430_Project_Proposal.pdf`) defining scope, related work, and metrics. |
 | **M2: Dataset & Baseline Checkpoint** | 28 Jul | **Done** | Data audit, normalization stats, baseline CNN training (`docs/documentation/CO5430_Group15_M2.pdf`). |
 | **M3: Prototype & Preliminary Results** | 18 Aug | **Done** | Multi-model ablation (Baseline, ResNet-18, EfficientNet-B0), confusion matrices, and Grad-CAM grids (`docs/documentation/CO5430_Group15_M3.pdf`). |
-| **M4: Experiment Freeze** | 25 Aug | **Completed** | Decision threshold sweep ($\tau \in [0.20, 0.50]$), weighted soft-voting Ensemble ($0.60\text{R} + 0.40\text{E}$), final test metric freeze, error analysis. |
-| **M5: Draft Technical Report** | 01 Sep | **In Progress** | Complete IEEE-formatted draft report (6–8 pages) with all figures, methodology, and medical discussion. |
-| **M6: Final Submission & Demonstration** | 07 Sep | **Upcoming** | Final IEEE manuscript, clean modular source package, and live oral viva demonstration. |
+| **M4: Experiment Freeze** | 25 Aug | **Done** | Decision threshold sweep ($\tau \in [0.20, 0.50]$), weighted soft-voting Ensemble ($0.60\text{R} + 0.40\text{E}$), final test metric freeze, error analysis. |
+| **M5: Draft Technical Report** | 01 Sep | **Done** | Complete IEEE-formatted draft report (6–8 pages) with all figures, methodology, and medical discussion. |
+| **M6: Final Submission & Demonstration** | 11 Sep | **Done** | Final IEEE manuscript, clean modular source package, and live oral viva demonstration. |
 
 ---
 
